@@ -463,6 +463,8 @@ Thanks to all the people who contribute.
 
 - [Hugging Face Chat Extension](https://github.com/huggingface/huggingface-vscode-chat)
 - [VS Code Chat Provider API](https://code.visualstudio.com/api/extension-guides/ai/language-model-chat-provider)
+- [JohnnyZ93/oai-compatible-copilot](https://github.com/JohnnyZ93/oai-compatible-copilot)
+
 
 ## Support & License
 - Open issues: https://github.com/chukangkang/oai-compatible-copilot/issues

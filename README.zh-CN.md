@@ -463,6 +463,8 @@ VS Code Copilot 针对特定模型优化了系统提示词。[详细介绍](http
 
 - [Hugging Face Chat 擴展](https://github.com/huggingface/huggingface-vscode-chat)
 - [VS Code Chat Provider API](https://code.visualstudio.com/api/extension-guides/ai/language-model-chat-provider)
+- [JohnnyZ93/oai-compatible-copilot](https://github.com/JohnnyZ93/oai-compatible-copilot)
+
 
 ## 支持 & 許可證
 - 提交 Issue：https://github.com/chukangkang/oai-compatible-copilot/issues
