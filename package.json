@@ -1,0 +1,495 @@
+{
+	"name": "oai-compatible-copilot",
+	"publisher": "chukangkang",
+	"displayName": "OAI Compatible Provider for Copilot",
+	"description": "An extension that integrates OpenAI/Ollama/Anthropic/Gemini API Providers into GitHub Copilot Chat",
+	"icon": "assets/logo.png",
+	"keywords": [
+		"ai",
+		"chat",
+		"copilot",
+		"github-copilot",
+		"language-model",
+		"llm",
+		"openai",
+		"ollama",
+		"anthropic",
+		"claude",
+		"gemini",
+		"openai-compatible",
+		"openai-responses",
+		"git-commit",
+		"thinking"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chukangkang/oai-compatible-copilot.git"
+	},
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.127.0"
+	},
+	"categories": [
+		"AI",
+		"Chat"
+	],
+	"badges": [
+		{
+			"url": "https://img.shields.io/github/stars/chukangkang/oai-compatible-copilot?style=social",
+			"description": "Star oai-compatible-copilot on Github",
+			"href": "https://github.com/chukangkang/oai-compatible-copilot"
+		}
+	],
+	"bugs": {
+		"url": "https://github.com/chukangkang/oai-compatible-copilot/issues"
+	},
+	"license": "MIT",
+	"enabledApiProposals": [
+		"chatProvider"
+	],
+	"contributes": {
+		"languageModelChatProviders": [
+			{
+				"vendor": "oaicopilot",
+				"displayName": "OAI Compatible",
+				"managementCommand": "oaicopilot.setApikey"
+			}
+		],
+		"commands": [
+			{
+				"command": "oaicopilot.setApikey",
+				"category": "OAICopilot",
+				"title": "Set OAI Compatible Apikey"
+			},
+			{
+				"command": "oaicopilot.setProviderApikey",
+				"category": "OAICopilot",
+				"title": "Set OAI Compatible Multi-Provider Apikey"
+			},
+			{
+				"command": "oaicopilot.openConfig",
+				"category": "OAICopilot",
+				"title": "Open Configuration UI"
+			},
+			{
+				"command": "oaicopilot.generateGitCommitMessage",
+				"title": "Generate Commit Message with OAICopilot",
+				"category": "OAICopilot",
+				"icon": "$(wand)"
+			},
+			{
+				"command": "oaicopilot.abortGitCommitMessage",
+				"title": "Generate Commit Message with OAICopilot - Stop",
+				"category": "OAICopilot",
+				"icon": "$(debug-stop)"
+			}
+		],
+		"menus": {
+			"scm/title": [
+				{
+					"command": "oaicopilot.generateGitCommitMessage",
+					"group": "navigation",
+					"when": "config.git.enabled && scmProvider == git && !oaicopilot.isGeneratingCommit"
+				},
+				{
+					"command": "oaicopilot.abortGitCommitMessage",
+					"group": "navigation",
+					"when": "config.git.enabled && scmProvider == git && oaicopilot.isGeneratingCommit"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "oaicopilot.generateGitCommitMessage",
+					"when": "config.git.enabled && !oaicopilot.isGeneratingCommit"
+				},
+				{
+					"command": "oaicopilot.abortGitCommitMessage",
+					"when": "config.git.enabled && oaicopilot.isGeneratingCommit"
+				}
+			]
+		},
+		"configuration": {
+			"title": "OAI Compatible Copilot",
+			"properties": {
+				"oaicopilot.logLevel": {
+				"type": "string",
+				"default": "off",
+				"enum": [
+					"off",
+					"debug",
+					"info",
+					"warn",
+					"error"
+				],
+				"description": "Debug log level. Logs are written to ~/.copilot/oaicopilot/logs/ as JSON lines. Default is 'off' (no logging)."
+			},
+			"oaicopilot.baseUrl": {
+					"type": "string",
+					"default": "https://router.huggingface.co/v1",
+					"description": "The base URL for the Openai Compatible Inference API. Default value is Hugging Face."
+				},
+				"oaicopilot.models": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"description": "Model ID (e.g., 'glm-4.6')."
+							},
+							"displayName": {
+								"type": "string",
+								"description": "(Optional) Display name for the model that will be shown in the Copilot interface. If not provided, will be generated automatically."
+							},
+							"configId": {
+								"type": "string",
+								"description": "(Optional) Configuration ID for this model. Allows defining the same model with different settings (e.g. 'glm-4.6::thinking', 'glm-4.6::no-thinking')."
+							},
+							"owned_by": {
+								"type": "string",
+								"description": "Model provider (e.g., 'zai', 'openai')."
+							},
+							"provider": {
+								"type": "string",
+								"description": "(Alias of owned_by) Model provider (e.g., 'zai', 'openai')."
+							},
+							"provide": {
+								"type": "string",
+								"description": "(Alias of owned_by) Model provider (e.g., 'zai', 'openai')."
+							},
+							"family": {
+								"type": "string",
+								"description": "Model family (e.g., 'gpt-4', 'claude-3', 'gemini'). Enables model-specific optimizations and behaviors. Defaults to 'oai-compatible' if not specified."
+							},
+							"baseUrl": {
+								"type": "string",
+								"description": "Base URL for the model provider. If not provided, the global oaicopilot.baseUrl will be used."
+							},
+							"context_length": {
+								"type": "number",
+								"default": 128000,
+								"minimum": 1000,
+								"maximum": 10000000,
+								"description": "Model support context length. Default is 128000."
+							},
+							"vision": {
+								"type": "boolean",
+								"default": false,
+								"description": "Model support vision. Default is false."
+							},
+							"max_tokens": {
+								"type": "number",
+								"default": 4096,
+								"minimum": 1,
+								"maximum": 10000000,
+								"description": "Maximum number of tokens to generate (range: [1, context_length)). Default is 4096."
+							},
+							"max_completion_tokens": {
+								"type": "number",
+								"default": 4096,
+								"minimum": 1,
+								"maximum": 10000000,
+								"description": "Maximum number of tokens to generate (OpenAI new standard parameter)."
+							},
+							"reasoning_effort": {
+								"type": "string",
+								"default": "medium",
+								"enum": [
+									"max",
+									"xhigh",
+									"high",
+									"medium",
+									"low",
+									"minimal"
+								],
+								"description": "Default reasoning effort level for OpenAI-compatible requests. Leave empty to hide the Copilot picker."
+							},
+							"thinking": {
+								"type": "object",
+								"description": "Thinking configuration for Zai provider",
+								"properties": {
+									"type": {
+										"type": "string",
+										"enum": [
+											"enabled",
+											"disabled"
+										],
+										"description": "Set to 'enabled' to enable thinking, 'disabled' to disable thinking"
+									}
+								}
+							},
+							"enable_thinking": {
+								"type": "boolean",
+								"default": false,
+								"description": "Switches between thinking and non-thinking modes. Not required."
+							},
+							"thinking_budget": {
+								"type": "number",
+								"default": 128,
+								"minimum": 128,
+								"maximum": 10000000,
+								"description": "Maximum number of tokens for chain-of-thought output. Not required."
+							},
+							"temperature": {
+								"type": "number",
+								"default": 0,
+								"minimum": 0,
+								"maximum": 2,
+								"description": "Sampling temperature (range: [0, 2]). Lower values make output more deterministic, higher values make it more creative. Default is 0."
+							},
+							"top_p": {
+								"type": "number",
+								"default": 1,
+								"minimum": 0,
+								"maximum": 1,
+								"description": "Top-p sampling value (range: (0, 1]). Not required."
+							},
+							"top_k": {
+								"type": "number",
+								"default": 50,
+								"minimum": 1,
+								"description": "Top-k sampling value (range: [1, Infinity)). Not required."
+							},
+							"min_p": {
+								"type": "number",
+								"default": 0,
+								"minimum": 0,
+								"maximum": 1,
+								"description": "Minimum probability threshold (range: [0, 1]). Not required."
+							},
+							"frequency_penalty": {
+								"type": "number",
+								"default": 0,
+								"minimum": -2,
+								"maximum": 2,
+								"description": "Frequency penalty (range: [-2, 2]). Not required."
+							},
+							"presence_penalty": {
+								"type": "number",
+								"default": 0,
+								"minimum": -2,
+								"maximum": 2,
+								"description": "Presence penalty (range: [-2, 2]). Not required."
+							},
+							"repetition_penalty": {
+								"type": "number",
+								"default": 0,
+								"minimum": 0,
+								"maximum": 2,
+								"description": "Repetition penalty (range: (0, 2]). Not required."
+							},
+							"reasoning": {
+								"type": "object",
+								"default": {
+									"effort": "medium"
+								},
+								"properties": {
+									"effort": {
+										"type": "string",
+										"default": "medium",
+										"enum": [
+											"max",
+											"xhigh",
+											"high",
+											"medium",
+											"low",
+											"minimal",
+											"auto"
+										],
+										"description": "Reasoning effort level for OpenRouter/xAI (high, medium, low, minimal, auto)"
+									},
+									"exclude": {
+										"type": "boolean",
+										"default": false,
+										"description": "Exclude reasoning tokens from the final response"
+									},
+									"max_tokens": {
+										"type": "number",
+										"default": 2000,
+										"minimum": 1,
+										"description": "Specific token limit for reasoning (Anthropic-style, alternative to effort)"
+									},
+									"enabled": {
+										"type": "boolean",
+										"default": true,
+										"description": "Enable reasoning (inferred from effort or max_tokens if not specified)"
+									}
+								},
+								"description": "Reasoning configuration for OpenRouter-compatible providers"
+							},
+							"extra": {
+								"type": "object",
+								"description": "Extra request body parameters."
+							},
+							"headers": {
+								"type": "object",
+								"additionalProperties": {
+									"type": "string"
+								},
+								"description": "Custom HTTP headers to be sent with every request to this model's provider. These headers will be merged with the default headers (Authorization, Content-Type, User-Agent)."
+							},
+							"include_reasoning_in_request": {
+								"type": "boolean",
+								"default": false,
+								"description": "Whether to include reasoning_content in assistant messages sent to the API. Support deepseek-v3.2 or others."
+							},
+							"apiMode": {
+								"type": "string",
+								"enum": [
+									"openai",
+									"openai-responses",
+									"ollama",
+									"anthropic",
+									"gemini"
+								],
+								"default": "openai",
+								"description": "API mode: 'openai' (Default) for OpenAI Chat Completions (/chat/completions), 'openai-responses' for OpenAI Responses (/responses), 'ollama' for Ollama (/api/chat), 'anthropic' for Anthropic (/v1/messages), 'gemini' for Gemini (*/v1beta/models/{model}:streamGenerateContent?alt=sse)."
+							},
+							"useForCommitGeneration": {
+								"type": "boolean",
+								"default": false,
+								"description": "Whether to be used for Git commit message generation. Not supports gemini apiMode."
+							},
+							"delay": {
+								"type": "number",
+								"default": 0,
+								"minimum": 0,
+								"description": "Model-specific delay in milliseconds between consecutive requests. If not specified, falls back to global oaicopilot.delay configuration."
+							},
+							"cache_control": {
+								"type": "boolean",
+								"default": true,
+								"description": "Enable Anthropic prompt-caching breakpoints (apiMode='anthropic' only). When true, attaches cache_control={type:'ephemeral'} to the system prompt and the last tool definition, and forwards any in-message cache_control markers emitted by Copilot. Set to false for upstream providers that reject the cache_control field."
+							}
+						},
+						"required": [
+							"id"
+						],
+						"anyOf": [
+							{
+								"required": [
+									"owned_by"
+								]
+							},
+							{
+								"required": [
+									"provider"
+								]
+							},
+							{
+								"required": [
+									"provide"
+								]
+							}
+						]
+					},
+					"description": "A list of preferred models to use. If provided, these models will be used directly instead of fetching from the API."
+				},
+				"oaicopilot.retry": {
+					"type": "object",
+					"default": {
+						"enabled": true,
+						"max_attempts": 3,
+						"interval_ms": 1000,
+						"status_codes": []
+					},
+					"properties": {
+						"enabled": {
+							"type": "boolean",
+							"default": true,
+							"description": "Enable retry mechanism for api errors. Default is true."
+						},
+						"max_attempts": {
+							"type": "number",
+							"default": 3,
+							"minimum": 1,
+							"description": "Maximum number of retry attempts. Default is 3."
+						},
+						"interval_ms": {
+							"type": "number",
+							"default": 1000,
+							"minimum": 1,
+							"description": "Interval between retry attempts in milliseconds. Default is 1000 (1 seconds)."
+						},
+						"status_codes": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							},
+							"description": "Additional HTTP status codes that will be merged. Default is [429, 500, 502, 503, 504]."
+						}
+					},
+					"description": "Retry configuration for handling api errors like [429, 500, 502, 503, 504]."
+				},
+				"oaicopilot.delay": {
+					"type": "number",
+					"default": 0,
+					"minimum": 0,
+					"description": "Fixed delay in milliseconds between consecutive requests. Default is 0 (no delay)."
+				},
+				"oaicopilot.commitLanguage": {
+					"type": "string",
+					"default": "English",
+					"enum": [
+						"English",
+						"French",
+						"Italian",
+						"German",
+						"Spanish",
+						"Russian",
+						"Chinese (Simplified)",
+						"Chinese (Traditional)",
+						"Japanese",
+						"Korean",
+						"Czech",
+						"Portuguese (Brazil)",
+						"Turkish",
+						"Polish"
+					],
+					"description": "Language for generated Git commit messages. Default is English."
+				},
+				"oaicopilot.commitMessagePrompt": {
+					"type": "string",
+					"default": "",
+					"description": "Custom system prompt for commit message generation. If not provided, uses the default prompt."
+				},
+				"oaicopilot.readFileLines": {
+					"type": "number",
+					"default": 0,
+					"minimum": 0,
+					"maximum": 10000,
+					"description": "Number of lines to read when using `read_file` tool. Large lines may cost more tokens. Default is 0, let model decide lines."
+				}
+			}
+		}
+	},
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"download-api": "dts dev && mv vscode.proposed.*.ts src",
+		"compile": "tsc -p ./",
+		"lint": "eslint",
+		"format": "prettier --write .",
+		"watch": "tsc -watch -p ./",
+		"test": "npm run compile && vscode-test",
+		"build": "npx @vscode/vsce package -o extension.vsix"
+	},
+	"dependencies": {
+		"@microsoft/tiktokenizer": "^1.0.10"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@stylistic/eslint-plugin": "^2.9.0",
+		"@types/node": "^22",
+		"@types/mocha": "^10.0.6",
+		"@vscode/dts": "^0.4.1",
+		"@types/vscode": "^1.125.0",
+		"@vscode/test-cli": "^0.0.11",
+		"@vscode/test-electron": "^2.5.2",
+		"eslint": "^9.13.0",
+		"prettier": "^3.1.0",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.39.0"
+	}
+}
