@@ -13,7 +13,7 @@ English | [简体中文](README.zh-CN.md)
 [![CI](https://github.com/chukangkang/newapi-copilot-gw/actions/workflows/release.yml/badge.svg)](https://github.com/chukangkang/newapi-copilot-gw/actions)
 [![License](https://img.shields.io/github/license/chukangkang/newapi-copilot-gw?color=orange&label=License)](https://github.com/chukangkang/newapi-copilot-gw/blob/main/LICENSE)
 
-## ?Features
+## ✨ Features
 - **Multi-API support**: OpenAI/Ollama/Anthropic/Gemini APIs (ModelScope, SiliconFlow, DeepSeek...)
 - **Vision models**: Full support for image understanding capabilities
 - **Advanced configuration**: Flexible chat request options with thinking/reasoning control
@@ -30,13 +30,13 @@ English | [简体中文](README.zh-CN.md)
 - VS Code 1.104.0 or higher.
 - OpenAI-compatible provider API key.
 
-## ?Quick Start
+## 🚀 Quick Start
 1. Install the OAI Copilot Gateway extension (use extension.vsix).
 2. Open VS Code Settings and configure `newapicopilot.baseUrl` and `newapicopilot.models`.
 3. Open GitHub Copilot Chat interface.
 4. Click the model picker and select "Manage Models...".
 5. Choose "OAI Copilot GW" provider.
-6. Enter your API key ?it will be saved locally.
+6. Enter your API key — it will be saved locally.
 7. Select the models you want to add to the model picker.
 
 ### Settings Example
@@ -55,7 +55,7 @@ English | [简体中文](README.zh-CN.md)
 ]
 ```
 
-## ?Configuration UI
+## 📋 Configuration UI
 
 The extension provides a visual configuration interface that makes it easy to manage global settings, providers, and models without editing JSON files manually.
 
@@ -124,7 +124,7 @@ Below are the model family settings supported by Copilot:
 
 </details>
 
-## ?Multi-API Mode
+## 🔌 Multi-API Mode
 
 The extension supports five different API protocols to work with various model providers. You can specify which API mode to use for each model via the `apiMode` parameter.
 
@@ -189,7 +189,7 @@ Mixed configuration with multiple API modes:
 
 </details>
 
-## ?Multi-Provider Guide
+## 🔑 Multi-Provider Guide
 
 > `owned_by` (alias: `provider` / `provide`) in model config is used for grouping provider-specific API keys. The storage key is `newapicopilot.apiKey.<providerIdLowercase>`.
 
@@ -230,7 +230,7 @@ Mixed configuration with multiple API modes:
 
 </details>
 
-## ?Multi-config for the same model
+## ⚙️ Multi-config for the same model
 
 You can define multiple configurations for the same model ID by using the `configId` field. This allows you to have the same base model with different settings for different use cases.
 
@@ -270,13 +270,13 @@ To use this feature:
 ]
 ```
 
-In this example, you'll have three different configurations of the glm-4.6 model available in VS Code:
+In this example, you'll have two different configurations of the glm-4.6 model available in VS Code:
 - `glm-4.6::thinking` - use GLM-4.6 with thinking
 - `glm-4.6::no-thinking` - use GLM-4.6 without thinking
 
 </details>
 
-## ?Custom Headers
+## 🎯 Custom Headers
 
 You can specify custom HTTP headers that will be sent with every request to a specific model's provider. This is useful for:
 
@@ -313,7 +313,7 @@ You can specify custom HTTP headers that will be sent with every request to a sp
 
 </details>
 
-## ?Custom Request body parameters
+## 📦 Custom Request body parameters
 
 The `extra` field allows you to add arbitrary parameters to the API request body. This is useful for provider-specific features that aren't covered by the standard parameters.
 
@@ -435,7 +435,7 @@ All parameters support individual configuration for different models, providing 
   - **Higher values (0.7-2.0)**: More creative and varied responses. Suitable for open-ended questions and explanations.
   - **Best Practice**: Set to `0` to align with GitHub Copilot's default deterministic behavior for consistent code suggestions. Thinking-enabled models suggest `1.0` to ensure optimal performance of the thinking mechanism.
 - `top_p`: Top-p sampling value (range: (0, 1]). Optional parameter
-- `top_k`: Top-k sampling value (range: [1, ?). Optional parameter
+- `top_k`: Top-k sampling value (range: [1, ∞). Optional parameter
 - `min_p`: Minimum probability threshold (range: [0, 1]). Optional parameter
 - `frequency_penalty`: Frequency penalty (range: [-2, 2]). Optional parameter
 - `presence_penalty`: Presence penalty (range: [-2, 2]). Optional parameter
