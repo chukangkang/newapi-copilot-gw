@@ -11,7 +11,7 @@ export type AnthropicRole = "user" | "assistant";
  */
 export interface AnthropicCacheControl {
 	type: "ephemeral";
-	/** Optional cache lifetime â€” "5m" (default) or "1h". */
+	/** Optional cache lifetime â€?"5m" (default) or "1h". */
 	ttl?: "5m" | "1h";
 }
 

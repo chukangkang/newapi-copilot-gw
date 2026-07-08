@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="OAICopilot Logo" width="120" height="120">
+<img src="assets/logo.png" alt="OAI Copilot GW Logo" width="120" height="120">
 
-# OAI Compatible Provider for Copilot
+# OAI Copilot Gateway
 
 **A VSCode extension to use OpenAI/Ollama/Anthropic/Gemini API Providers in GitHub Copilot Chat** 🔥
 
@@ -10,10 +10,10 @@ English | [简体中文](README.zh-CN.md)
 
 </div>
 
-[![CI](https://github.com/chukangkang/oai-compatible-copilot/actions/workflows/release.yml/badge.svg)](https://github.com/chukangkang/oai-compatible-copilot/actions)
-[![License](https://img.shields.io/github/license/chukangkang/oai-compatible-copilot?color=orange&label=License)](https://github.com/chukangkang/oai-compatible-copilot/blob/main/LICENSE)
+[![CI](https://github.com/chukangkang/newapi-copilot-gw/actions/workflows/release.yml/badge.svg)](https://github.com/chukangkang/newapi-copilot-gw/actions)
+[![License](https://img.shields.io/github/license/chukangkang/newapi-copilot-gw?color=orange&label=License)](https://github.com/chukangkang/newapi-copilot-gw/blob/main/LICENSE)
 
-## ✨ Features
+## ?Features
 - **Multi-API support**: OpenAI/Ollama/Anthropic/Gemini APIs (ModelScope, SiliconFlow, DeepSeek...)
 - **Vision models**: Full support for image understanding capabilities
 - **Advanced configuration**: Flexible chat request options with thinking/reasoning control
@@ -30,20 +30,20 @@ English | [简体中文](README.zh-CN.md)
 - VS Code 1.104.0 or higher.
 - OpenAI-compatible provider API key.
 
-## ⚡ Quick Start
-1. Install the OAI Compatible Provider for Copilot extension (use extension.vsix).
-2. Open VS Code Settings and configure `oaicopilot.baseUrl` and `oaicopilot.models`.
+## ?Quick Start
+1. Install the OAI Copilot Gateway extension (use extension.vsix).
+2. Open VS Code Settings and configure `newapicopilot.baseUrl` and `newapicopilot.models`.
 3. Open GitHub Copilot Chat interface.
 4. Click the model picker and select "Manage Models...".
-5. Choose "OAI Compatible" provider.
-6. Enter your API key — it will be saved locally.
+5. Choose "OAI Copilot GW" provider.
+6. Enter your API key ?it will be saved locally.
 7. Select the models you want to add to the model picker.
 
 ### Settings Example
 
 ```json
-"oaicopilot.baseUrl": "https://api-inference.modelscope.cn/v1",
-"oaicopilot.models": [
+"newapicopilot.baseUrl": "https://api-inference.modelscope.cn/v1",
+"newapicopilot.models": [
     {
         "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
         "owned_by": "modelscope",
@@ -55,7 +55,7 @@ English | [简体中文](README.zh-CN.md)
 ]
 ```
 
-## ✨ Configuration UI
+## ?Configuration UI
 
 The extension provides a visual configuration interface that makes it easy to manage global settings, providers, and models without editing JSON files manually.
 
@@ -65,11 +65,11 @@ There are two ways to open the configuration interface:
 
 1. **From the Command Palette**:
    - Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS)
-   - Search for "OAICopilot: Open Configuration UI"
+   - Search for "newapicopilot: Open Configuration UI"
    - Select the command to open the configuration panel
 
 2. **From the Status Bar**:
-   - Click on the "OAICopilot" status bar item in the bottom-right corner of VS Code
+   - Click on the "newapicopilot" status bar item in the bottom-right corner of VS Code
 
 <details>
 <summary>Click Here for Details</summary>
@@ -95,7 +95,7 @@ There are two ways to open the configuration interface:
    - Open GitHub Copilot Chat (`Ctrl+Shift+I` or `Cmd+Shift+I`)
    - Click the model picker in the chat input
    - Select "Manage Models..."
-   - Choose "OAI Compatible" provider
+   - Choose "OAI Copilot GW" provider
    - Select your configured models
    - Start chatting with the model!
 
@@ -124,7 +124,7 @@ Below are the model family settings supported by Copilot:
 
 </details>
 
-## ✨ Multi-API Mode
+## ?Multi-API Mode
 
 The extension supports five different API protocols to work with various model providers. You can specify which API mode to use for each model via the `apiMode` parameter.
 
@@ -162,7 +162,7 @@ The extension supports five different API protocols to work with various model p
 Mixed configuration with multiple API modes:
 
 ```json
-"oaicopilot.models": [
+"newapicopilot.models": [
     {
         "id": "GLM-4.6",
         "owned_by": "modelscope",
@@ -189,15 +189,15 @@ Mixed configuration with multiple API modes:
 
 </details>
 
-## ✨ Multi-Provider Guide
+## ?Multi-Provider Guide
 
-> `owned_by` (alias: `provider` / `provide`) in model config is used for grouping provider-specific API keys. The storage key is `oaicopilot.apiKey.<providerIdLowercase>`.
+> `owned_by` (alias: `provider` / `provide`) in model config is used for grouping provider-specific API keys. The storage key is `newapicopilot.apiKey.<providerIdLowercase>`.
 
-1. Open VS Code Settings and configure `oaicopilot.models`.
-2. Open command center ( Ctrl+Shift+P ), and search "OAICopilot: Set OAI Compatible Multi-Provider API Key" to configure provider-specific API keys.
+1. Open VS Code Settings and configure `newapicopilot.models`.
+2. Open command center ( Ctrl+Shift+P ), and search "newapicopilot: Set OAI Compatible Multi-Provider API Key" to configure provider-specific API keys.
 3. Open GitHub Copilot Chat interface.
 4. Click the model picker and select "Manage Models...".
-5. Choose "OAI Compatible" provider.
+5. Choose "OAI Copilot GW" provider.
 6. Select the models you want to add to the model picker.
 
 <details>
@@ -206,8 +206,8 @@ Mixed configuration with multiple API modes:
 ### Settings Example
 
 ```json
-"oaicopilot.baseUrl": "https://api-inference.modelscope.cn/v1",
-"oaicopilot.models": [
+"newapicopilot.baseUrl": "https://api-inference.modelscope.cn/v1",
+"newapicopilot.models": [
     {
         "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
         "owned_by": "modelscope",
@@ -230,7 +230,7 @@ Mixed configuration with multiple API modes:
 
 </details>
 
-## ✨ Multi-config for the same model
+## ?Multi-config for the same model
 
 You can define multiple configurations for the same model ID by using the `configId` field. This allows you to have the same base model with different settings for different use cases.
 
@@ -246,7 +246,7 @@ To use this feature:
 ### Settings Example
 
 ```json
-"oaicopilot.models": [
+"newapicopilot.models": [
     {
         "id": "glm-4.6",
         "configId": "thinking",
@@ -276,7 +276,7 @@ In this example, you'll have three different configurations of the glm-4.6 model
 
 </details>
 
-## ✨ Custom Headers
+## ?Custom Headers
 
 You can specify custom HTTP headers that will be sent with every request to a specific model's provider. This is useful for:
 
@@ -291,7 +291,7 @@ You can specify custom HTTP headers that will be sent with every request to a sp
 ### Custom Headers Example
 
 ```json
-"oaicopilot.models": [
+"newapicopilot.models": [
     {
         "id": "custom-model",
         "owned_by": "provider",
@@ -313,7 +313,7 @@ You can specify custom HTTP headers that will be sent with every request to a sp
 
 </details>
 
-## ✨ Custom Request body parameters
+## ?Custom Request body parameters
 
 The `extra` field allows you to add arbitrary parameters to the API request body. This is useful for provider-specific features that aren't covered by the standard parameters.
 
@@ -333,7 +333,7 @@ The `extra` field allows you to add arbitrary parameters to the API request body
 ### Configuration Example
 
 ```json
-"oaicopilot.models": [
+"newapicopilot.models": [
     {
         "id": "custom-model",
         "owned_by": "openai",
@@ -424,7 +424,7 @@ All parameters support individual configuration for different models, providing 
 - `displayName`: Display name for the model that will be shown in the Copilot interface.
 - `configId`: Configuration ID for this model. Allows defining the same model with different settings (e.g. 'glm-4.6::thinking', 'glm-4.6::no-thinking')
 - `family`: Model family (e.g., 'gpt-4', 'claude-3', 'gemini'). Enables model-specific optimizations and behaviors. Defaults to 'oai-compatible' if not specified.
-- `baseUrl`: Model-specific base URL. If not provided, the global `oaicopilot.baseUrl` will be used
+- `baseUrl`: Model-specific base URL. If not provided, the global `newapicopilot.baseUrl` will be used
 - `context_length`: The context length supported by the model. Default value is 128000
 - `max_tokens`: Maximum number of tokens to generate (range: [1, context_length]). Default value is 4096
 - `max_completion_tokens`: Maximum number of tokens to generate (OpenAI new standard parameter)
@@ -435,7 +435,7 @@ All parameters support individual configuration for different models, providing 
   - **Higher values (0.7-2.0)**: More creative and varied responses. Suitable for open-ended questions and explanations.
   - **Best Practice**: Set to `0` to align with GitHub Copilot's default deterministic behavior for consistent code suggestions. Thinking-enabled models suggest `1.0` to ensure optimal performance of the thinking mechanism.
 - `top_p`: Top-p sampling value (range: (0, 1]). Optional parameter
-- `top_k`: Top-k sampling value (range: [1, ∞)). Optional parameter
+- `top_k`: Top-k sampling value (range: [1, ?). Optional parameter
 - `min_p`: Minimum probability threshold (range: [0, 1]). Optional parameter
 - `frequency_penalty`: Frequency penalty (range: [-2, 2]). Optional parameter
 - `presence_penalty`: Presence penalty (range: [-2, 2]). Optional parameter
@@ -454,7 +454,7 @@ All parameters support individual configuration for different models, providing 
 - `extra`: Extra request body parameters.
 - `include_reasoning_in_request`: Whether to include reasoning_content in assistant messages sent to the API. Supports deepseek-v3.2 and similar models.
 - `apiMode`: API mode: 'openai' (Default) for API (/chat/completions), 'openai-responses' for API (/responses), 'ollama' for API (/api/chat), 'anthropic' for API (/v1/messages), 'gemini' for API (/v1beta/models/{model}:streamGenerateContent?alt=sse).
-- `delay`: Model-specific delay in milliseconds between consecutive requests. If not specified, falls back to global `oaicopilot.delay` configuration.
+- `delay`: Model-specific delay in milliseconds between consecutive requests. If not specified, falls back to global `newapicopilot.delay` configuration.
 - `useForCommitGeneration`: Whether to be used for Git commit message generation. Not supports gemini apiMode.
 
 ## Thanks to
@@ -463,9 +463,9 @@ Thanks to all the people who contribute.
 
 - [Hugging Face Chat Extension](https://github.com/huggingface/huggingface-vscode-chat)
 - [VS Code Chat Provider API](https://code.visualstudio.com/api/extension-guides/ai/language-model-chat-provider)
-- [JohnnyZ93/oai-compatible-copilot](https://github.com/JohnnyZ93/oai-compatible-copilot)
+- [chukangkang/newapi-copilot-gw](https://github.com/chukangkang/newapi-copilot-gw)
 
 
 ## Support & License
-- Open issues: https://github.com/chukangkang/oai-compatible-copilot/issues
+- Open issues: https://github.com/chukangkang/newapi-copilot-gw/issues
 - License: MIT License Copyright (c) 2025 chukangkang

@@ -15,7 +15,7 @@ import { logger } from "./logger";
 
 const DEFAULT_CONTEXT_LENGTH = 128000;
 const DEFAULT_MAX_TOKENS = 4096;
-const EXTENSION_LABEL = "OAICopilot";
+const EXTENSION_LABEL = "newapicopilot";
 
 /**
  * Get the list of available language models contributed by this provider
@@ -30,7 +30,7 @@ export async function prepareLanguageModelChatInformation(
 ): Promise<LanguageModelChatInformation[]> {
 	// Check for user-configured models first
 	const config = vscode.workspace.getConfiguration();
-	const userModels = normalizeUserModels(config.get<unknown>("oaicopilot.models", []));
+	const userModels = normalizeUserModels(config.get<unknown>("newapicopilot.models", []));
 
 	let infos: ModelPickerChatInformation[];
 	if (userModels && userModels.length > 0) {
@@ -79,7 +79,7 @@ export async function prepareLanguageModelChatInformation(
 		}
 
 		const config = vscode.workspace.getConfiguration();
-		const BASE_URL = config.get<string>("oaicopilot.baseUrl", "");
+		const BASE_URL = config.get<string>("newapicopilot.baseUrl", "");
 		if (!BASE_URL || !BASE_URL.startsWith("http")) {
 			throw new Error(`Invalid base URL configuration.`);
 		}
@@ -209,7 +209,7 @@ export async function fetchModels(
  */
 async function ensureApiKey(silent: boolean, secrets: vscode.SecretStorage): Promise<string | undefined> {
 	// Fall back to generic API key
-	let apiKey = await secrets.get("oaicopilot.apiKey");
+	let apiKey = await secrets.get("newapicopilot.apiKey");
 
 	if (!apiKey && !silent) {
 		const entered = await vscode.window.showInputBox({
@@ -220,7 +220,7 @@ async function ensureApiKey(silent: boolean, secrets: vscode.SecretStorage): Pro
 		});
 		if (entered && entered.trim()) {
 			apiKey = entered.trim();
-			await secrets.store("oaicopilot.apiKey", apiKey);
+			await secrets.store("newapicopilot.apiKey", apiKey);
 		}
 	}
 	return apiKey;

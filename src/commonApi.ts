@@ -189,7 +189,7 @@ export abstract class CommonApi<TMessage, TRequestBody> {
 			return parameters;
 		}
 		const config = vscode.workspace.getConfiguration();
-		const defaultLines = config.get<number>("oaicopilot.readFileLines", 0);
+		const defaultLines = config.get<number>("newapicopilot.readFileLines", 0);
 		if (defaultLines <= 0) {
 			return parameters;
 		}

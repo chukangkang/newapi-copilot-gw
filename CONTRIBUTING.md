@@ -22,8 +22,8 @@ As the copyright owner, you agree to license your contributions under an irrevoc
 - Your OpenAI-compatible provider API key.
 
 ```bash
-git clone https://github.com/chukangkang/oai-compatible-copilot
-cd oai-compatible-copilot
+git clone https://github.com/chukangkang/newapi-copilot-gw
+cd newapi-copilot-gw
 npm install
 npm run compile
 ```

@@ -4,7 +4,7 @@
 
 **Major Release** - Fresh start under new maintenance
 
-- 🎉 Official rebrand to `chukangkang/oai-compatible-copilot`
+- 🎉 Official rebrand to `chukangkang/newapi-copilot-gw`
 
 
 

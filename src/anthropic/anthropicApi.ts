@@ -228,7 +228,7 @@ export class AnthropicApi extends CommonApi<AnthropicMessage, AnthropicRequestBo
 		}
 
 		// Add system content if we extracted it. When caching is enabled, emit the system prompt
-		// as a structured `text` block array carrying a `cache_control` breakpoint â€” without this,
+		// as a structured `text` block array carrying a `cache_control` breakpoint â€?without this,
 		// Anthropic will never cache the (often very long) Copilot system prompt and every turn pays
 		// full input cost. The string form remains the fallback when caching is disabled.
 		if (this._systemContent) {
@@ -269,7 +269,7 @@ export class AnthropicApi extends CommonApi<AnthropicMessage, AnthropicRequestBo
 				input_schema: tool.function.parameters,
 			}));
 			// Mark the last tool with a cache_control breakpoint so the tool-definitions prefix is cached.
-			// Tool definitions are large and stable across a session â€” this is one of the highest-value
+			// Tool definitions are large and stable across a session â€?this is one of the highest-value
 			// breakpoints to set, and Anthropic counts everything up to and including this tool toward
 			// the cached prefix on subsequent requests.
 			if (this._cacheControlEnabled && rb.tools.length > 0) {
@@ -303,7 +303,7 @@ export class AnthropicApi extends CommonApi<AnthropicMessage, AnthropicRequestBo
 		// Anthropic accepts at most 4 `cache_control` breakpoints per request. The host (Copilot)
 		// may emit several breakpoints inside `messages` via its own caching strategy; combined with
 		// the system + last-tool breakpoints we add above, the total can exceed the cap and the API
-		// returns 400. Strip the *earliest* in-message breakpoints first â€” Anthropic's cache lookup
+		// returns 400. Strip the *earliest* in-message breakpoints first â€?Anthropic's cache lookup
 		// matches the longest cached prefix, so the most recent (rightmost) breakpoints carry the
 		// most value, and the system / tools breakpoints sit at the very front of the prefix and
 		// rarely change, so they're worth keeping.
@@ -318,9 +318,9 @@ export class AnthropicApi extends CommonApi<AnthropicMessage, AnthropicRequestBo
 	 * Anthropic accepts at most 4 `cache_control` breakpoints per request. This method counts
 	 * every breakpoint currently set on `system`, `tools`, and each message content block, and
 	 * if the total exceeds 4, strips breakpoints in a stable priority order:
-	 *   1. In-message breakpoints, earliest first (least valuable â€” covers shortest prefix).
+	 *   1. In-message breakpoints, earliest first (least valuable â€?covers shortest prefix).
 	 *   2. The tools breakpoint, if still over budget after step 1.
-	 *   3. The system breakpoint, last (most valuable â€” covers longest stable prefix).
+	 *   3. The system breakpoint, last (most valuable â€?covers longest stable prefix).
 	 */
 	private enforceCacheControlBudget(rb: AnthropicRequestBody): void {
 		const MAX = 4;

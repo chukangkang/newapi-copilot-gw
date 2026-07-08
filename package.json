@@ -1,7 +1,7 @@
 {
-	"name": "oai-compatible-copilot",
+	"name": "newapi-copilot-gw",
 	"publisher": "chukangkang",
-	"displayName": "OAI Compatible Provider for Copilot",
+	"displayName": "OAI Copilot Gateway",
 	"description": "An extension that integrates OpenAI/Ollama/Anthropic/Gemini API Providers into GitHub Copilot Chat",
 	"icon": "assets/logo.png",
 	"keywords": [
@@ -23,7 +23,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/chukangkang/oai-compatible-copilot.git"
+		"url": "https://github.com/chukangkang/newapi-copilot-gw.git"
 	},
 	"version": "1.0.0",
 	"engines": {
@@ -35,13 +35,13 @@
 	],
 	"badges": [
 		{
-			"url": "https://img.shields.io/github/stars/chukangkang/oai-compatible-copilot?style=social",
-			"description": "Star oai-compatible-copilot on Github",
-			"href": "https://github.com/chukangkang/oai-compatible-copilot"
+			"url": "https://img.shields.io/github/stars/chukangkang/newapi-copilot-gw?style=social",
+			"description": "Star newapi-copilot-gw on Github",
+			"href": "https://github.com/chukangkang/newapi-copilot-gw"
 		}
 	],
 	"bugs": {
-		"url": "https://github.com/chukangkang/oai-compatible-copilot/issues"
+		"url": "https://github.com/chukangkang/newapi-copilot-gw/issues"
 	},
 	"license": "MIT",
 	"enabledApiProposals": [
@@ -50,68 +50,68 @@
 	"contributes": {
 		"languageModelChatProviders": [
 			{
-				"vendor": "oaicopilot",
+				"vendor": "newapicopilot",
 				"displayName": "OAI Compatible",
-				"managementCommand": "oaicopilot.setApikey"
+				"managementCommand": "newapicopilot.setApikey"
 			}
 		],
 		"commands": [
 			{
-				"command": "oaicopilot.setApikey",
-				"category": "OAICopilot",
+				"command": "newapicopilot.setApikey",
+				"category": "newapicopilot",
 				"title": "Set OAI Compatible Apikey"
 			},
 			{
-				"command": "oaicopilot.setProviderApikey",
-				"category": "OAICopilot",
+				"command": "newapicopilot.setProviderApikey",
+				"category": "newapicopilot",
 				"title": "Set OAI Compatible Multi-Provider Apikey"
 			},
 			{
-				"command": "oaicopilot.openConfig",
-				"category": "OAICopilot",
+				"command": "newapicopilot.openConfig",
+				"category": "newapicopilot",
 				"title": "Open Configuration UI"
 			},
 			{
-				"command": "oaicopilot.generateGitCommitMessage",
-				"title": "Generate Commit Message with OAICopilot",
-				"category": "OAICopilot",
+				"command": "newapicopilot.generateGitCommitMessage",
+				"title": "Generate Commit Message with newapicopilot",
+				"category": "newapicopilot",
 				"icon": "$(wand)"
 			},
 			{
-				"command": "oaicopilot.abortGitCommitMessage",
-				"title": "Generate Commit Message with OAICopilot - Stop",
-				"category": "OAICopilot",
+				"command": "newapicopilot.abortGitCommitMessage",
+				"title": "Generate Commit Message with newapicopilot - Stop",
+				"category": "newapicopilot",
 				"icon": "$(debug-stop)"
 			}
 		],
 		"menus": {
 			"scm/title": [
 				{
-					"command": "oaicopilot.generateGitCommitMessage",
+					"command": "newapicopilot.generateGitCommitMessage",
 					"group": "navigation",
-					"when": "config.git.enabled && scmProvider == git && !oaicopilot.isGeneratingCommit"
+					"when": "config.git.enabled && scmProvider == git && !newapicopilot.isGeneratingCommit"
 				},
 				{
-					"command": "oaicopilot.abortGitCommitMessage",
+					"command": "newapicopilot.abortGitCommitMessage",
 					"group": "navigation",
-					"when": "config.git.enabled && scmProvider == git && oaicopilot.isGeneratingCommit"
+					"when": "config.git.enabled && scmProvider == git && newapicopilot.isGeneratingCommit"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "oaicopilot.generateGitCommitMessage",
-					"when": "config.git.enabled && !oaicopilot.isGeneratingCommit"
+					"command": "newapicopilot.generateGitCommitMessage",
+					"when": "config.git.enabled && !newapicopilot.isGeneratingCommit"
 				},
 				{
-					"command": "oaicopilot.abortGitCommitMessage",
-					"when": "config.git.enabled && oaicopilot.isGeneratingCommit"
+					"command": "newapicopilot.abortGitCommitMessage",
+					"when": "config.git.enabled && newapicopilot.isGeneratingCommit"
 				}
 			]
 		},
 		"configuration": {
-			"title": "OAI Compatible Copilot",
+			"title": "OAI Copilot Gateway",
 			"properties": {
-				"oaicopilot.logLevel": {
+				"newapicopilot.logLevel": {
 				"type": "string",
 				"default": "off",
 				"enum": [
@@ -121,14 +121,14 @@
 					"warn",
 					"error"
 				],
-				"description": "Debug log level. Logs are written to ~/.copilot/oaicopilot/logs/ as JSON lines. Default is 'off' (no logging)."
+				"description": "Debug log level. Logs are written to ~/.copilot/newapicopilot/logs/ as JSON lines. Default is 'off' (no logging)."
 			},
-			"oaicopilot.baseUrl": {
+			"newapicopilot.baseUrl": {
 					"type": "string",
 					"default": "https://router.huggingface.co/v1",
-					"description": "The base URL for the Openai Compatible Inference API. Default value is Hugging Face."
+					"description": "The base URL for the Openai Compatible Inference API. This is a generic OpenAI Compatible API router."
 				},
-				"oaicopilot.models": {
+				"newapicopilot.models": {
 					"type": "array",
 					"default": [],
 					"items": {
@@ -164,7 +164,7 @@
 							},
 							"baseUrl": {
 								"type": "string",
-								"description": "Base URL for the model provider. If not provided, the global oaicopilot.baseUrl will be used."
+								"description": "Base URL for the model provider. If not provided, the global newapicopilot.baseUrl will be used."
 							},
 							"context_length": {
 								"type": "number",
@@ -355,7 +355,7 @@
 								"type": "number",
 								"default": 0,
 								"minimum": 0,
-								"description": "Model-specific delay in milliseconds between consecutive requests. If not specified, falls back to global oaicopilot.delay configuration."
+								"description": "Model-specific delay in milliseconds between consecutive requests. If not specified, falls back to global newapicopilot.delay configuration."
 							},
 							"cache_control": {
 								"type": "boolean",
@@ -386,7 +386,7 @@
 					},
 					"description": "A list of preferred models to use. If provided, these models will be used directly instead of fetching from the API."
 				},
-				"oaicopilot.retry": {
+				"newapicopilot.retry": {
 					"type": "object",
 					"default": {
 						"enabled": true,
@@ -422,13 +422,13 @@
 					},
 					"description": "Retry configuration for handling api errors like [429, 500, 502, 503, 504]."
 				},
-				"oaicopilot.delay": {
+				"newapicopilot.delay": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,
 					"description": "Fixed delay in milliseconds between consecutive requests. Default is 0 (no delay)."
 				},
-				"oaicopilot.commitLanguage": {
+				"newapicopilot.commitLanguage": {
 					"type": "string",
 					"default": "English",
 					"enum": [
@@ -449,12 +449,12 @@
 					],
 					"description": "Language for generated Git commit messages. Default is English."
 				},
-				"oaicopilot.commitMessagePrompt": {
+				"newapicopilot.commitMessagePrompt": {
 					"type": "string",
 					"default": "",
 					"description": "Custom system prompt for commit message generation. If not provided, uses the default prompt."
 				},
-				"oaicopilot.readFileLines": {
+				"newapicopilot.readFileLines": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,

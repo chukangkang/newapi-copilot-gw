@@ -8,7 +8,7 @@ export function initStatusBar(context: vscode.ExtensionContext): vscode.StatusBa
 	tokenCountStatusBarItem.name = "Token Count";
 	tokenCountStatusBarItem.text = "$(symbol-numeric) Ready";
 	tokenCountStatusBarItem.tooltip = "Current model token usage - Click to Open Configuration UI";
-	tokenCountStatusBarItem.command = "oaicopilot.openConfig";
+	tokenCountStatusBarItem.command = "newapicopilot.openConfig";
 	context.subscriptions.push(tokenCountStatusBarItem);
 	// Show the status bar item initially
 	tokenCountStatusBarItem.show();
@@ -35,10 +35,10 @@ export function formatTokenCount(value: number): string {
  * Create a visual progress bar showing token usage
  * @param usedTokens Tokens used
  * @param maxTokens Maximum tokens available
- * @returns Progress bar string (e.g., "‚ñÜ 75.2%")
+ * @returns Progress bar string (e.g., "‚ñ?75.2%")
  */
 export function createProgressBar(usedTokens: number, maxTokens: number): string {
-	const blocks = ["‚ñÅ", "‚ñÇ", "‚ñÉ", "‚ñÑ", "‚ñÖ", "‚ñÜ", "‚ñá", "‚ñà"];
+	const blocks = ["‚ñ?, "‚ñ?, "‚ñ?, "‚ñ?, "‚ñ?, "‚ñ?, "‚ñ?, "‚ñ?];
 	const usagePercentage = Math.min((usedTokens / maxTokens) * 100, 100);
 	const blockIndex = Math.min(Math.floor((usagePercentage / 100) * blocks.length), blocks.length - 1);
 

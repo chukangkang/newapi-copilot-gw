@@ -315,7 +315,7 @@ window.addEventListener("message", (event) => {
 			// Handle error from fetchModels
 			dropdownHeader.textContent = "Error fetching models";
 			dropdownContent.innerHTML = `<div class="dropdown-option error">Failed to fetch models. Check the Developer Console for details.</div>`;
-			console.error("[oaicopilot] Failed to fetch models:", message.error);
+			console.error("[newapicopilot] Failed to fetch models:", message.error);
 			break;
 		case "confirmResponse":
 			// Handle confirmation responses

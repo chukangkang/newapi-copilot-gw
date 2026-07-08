@@ -91,7 +91,7 @@ export interface HFModelItem {
 
 	/**
 	 * Model-specific delay in milliseconds between consecutive requests.
-	 * If not specified, falls back to global `oaicopilot.delay` configuration.
+	 * If not specified, falls back to global `newapicopilot.delay` configuration.
 	 */
 	delay?: number;
 
@@ -101,7 +101,7 @@ export interface HFModelItem {
 	 * When enabled, the provider will:
 	 *   - Convert `system` into a structured array and mark it with `cache_control: { type: "ephemeral" }`.
 	 *   - Mark the last entry of `tools` with `cache_control: { type: "ephemeral" }`.
-	 *   - Honor in-message `cache_control` markers emitted by the host (Copilot) â€” i.e. a
+	 *   - Honor in-message `cache_control` markers emitted by the host (Copilot) â€?i.e. a
 	 *     `LanguageModelDataPart` with `mimeType === "cache_control"` is converted to a real
 	 *     Anthropic `cache_control` field on the preceding content block.
 	 *

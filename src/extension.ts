@@ -18,12 +18,12 @@ export function activate(context: vscode.ExtensionContext) {
 	const tokenCountStatusBarItem: vscode.StatusBarItem = initStatusBar(context);
 	const provider = new HuggingFaceChatModelProvider(context.secrets, tokenCountStatusBarItem);
 	// Register the Hugging Face provider under the vendor id used in package.json
-	vscode.lm.registerLanguageModelChatProvider("oaicopilot", provider);
+	vscode.lm.registerLanguageModelChatProvider("newapicopilot", provider);
 
 	// Management command to configure API key
 	context.subscriptions.push(
-		vscode.commands.registerCommand("oaicopilot.setApikey", async () => {
-			const existing = await context.secrets.get("oaicopilot.apiKey");
+		vscode.commands.registerCommand("newapicopilot.setApikey", async () => {
+			const existing = await context.secrets.get("newapicopilot.apiKey");
 			const apiKey = await vscode.window.showInputBox({
 				title: "OAI Compatible Provider API Key",
 				prompt: existing ? "Update your OAI Compatible API key" : "Enter your OAI Compatible API key",
@@ -35,21 +35,21 @@ export function activate(context: vscode.ExtensionContext) {
 				return; // user canceled
 			}
 			if (!apiKey.trim()) {
-				await context.secrets.delete("oaicopilot.apiKey");
+				await context.secrets.delete("newapicopilot.apiKey");
 				vscode.window.showInformationMessage("OAI Compatible API key cleared.");
 				return;
 			}
-			await context.secrets.store("oaicopilot.apiKey", apiKey.trim());
+			await context.secrets.store("newapicopilot.apiKey", apiKey.trim());
 			vscode.window.showInformationMessage("OAI Compatible API key saved.");
 		})
 	);
 
 	// Management command to configure provider-specific API keys
 	context.subscriptions.push(
-		vscode.commands.registerCommand("oaicopilot.setProviderApikey", async () => {
+		vscode.commands.registerCommand("newapicopilot.setProviderApikey", async () => {
 			// Get provider list from configuration
 			const config = vscode.workspace.getConfiguration();
-			const userModels = normalizeUserModels(config.get<HFModelItem[]>("oaicopilot.models", []));
+			const userModels = normalizeUserModels(config.get<HFModelItem[]>("newapicopilot.models", []));
 
 			// Extract unique providers (case-insensitive)
 			const providers = Array.from(
@@ -58,7 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 			if (providers.length === 0) {
 				vscode.window.showErrorMessage(
-					"No providers found in oaicopilot.models configuration. Please configure models first."
+					"No providers found in newapicopilot.models configuration. Please configure models first."
 				);
 				return;
 			}
@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 
 			// Get existing API key for selected provider
-			const providerKey = `oaicopilot.apiKey.${selectedProvider}`;
+			const providerKey = `newapicopilot.apiKey.${selectedProvider}`;
 			const existing = await context.secrets.get(providerKey);
 
 			// Prompt for API key
@@ -102,17 +102,17 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("oaicopilot.openConfig", async () => {
+		vscode.commands.registerCommand("newapicopilot.openConfig", async () => {
 			ConfigViewPanel.openPanel(context.extensionUri, context.secrets);
 		})
 	);
 
 	// Register the generateGitCommitMessage command handler
 	context.subscriptions.push(
-		vscode.commands.registerCommand("oaicopilot.generateGitCommitMessage", async (scm) => {
+		vscode.commands.registerCommand("newapicopilot.generateGitCommitMessage", async (scm) => {
 			generateCommitMsg(context.secrets, scm);
 		}),
-		vscode.commands.registerCommand("oaicopilot.abortGitCommitMessage", () => {
+		vscode.commands.registerCommand("newapicopilot.abortGitCommitMessage", () => {
 			abortCommitGeneration();
 		})
 	);
@@ -120,7 +120,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Watch for logLevel configuration changes
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {
-			if (e.affectsConfiguration("oaicopilot.logLevel")) {
+			if (e.affectsConfiguration("newapicopilot.logLevel")) {
 				logger.reloadConfig();
 			}
 		})

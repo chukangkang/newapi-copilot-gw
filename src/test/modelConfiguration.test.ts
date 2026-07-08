@@ -58,30 +58,30 @@ suite("modelConfiguration", () => {
 
 	test("registers deepseek-v4-flash with reasoning effort metadata", async () => {
 		const config = vscode.workspace.getConfiguration();
-		const previousModels = config.get<unknown>("oaicopilot.models", []);
+		const previousModels = config.get<unknown>("newapicopilot.models", []);
 		const cts = new vscode.CancellationTokenSource();
 		const model: HFModelItem = { ...deepSeekModel, id: "deepseek-v4-flash", displayName: undefined };
 
 		try {
-			await config.update("oaicopilot.models", [model], vscode.ConfigurationTarget.Global);
+			await config.update("newapicopilot.models", [model], vscode.ConfigurationTarget.Global);
 
 			const infos = await prepareLanguageModelChatInformation({ silent: true }, cts.token, {} as vscode.SecretStorage);
 			const info = infos.find((item) => item.id === "deepseek-v4-flash") as ModelPickerChatInformation | undefined;
 
 			assert.ok(info, "deepseek-v4-flash should be registered");
 			assert.strictEqual(info.name, "deepseek-v4-flash");
-			assert.strictEqual(info.detail, "deepseek (OAICopilot)");
+			assert.strictEqual(info.detail, "deepseek (newapicopilot)");
 			assert.strictEqual(info.isUserSelectable, true);
 			assert.deepStrictEqual(info.configurationSchema, createReasoningEffortConfigurationSchema("medium"));
 		} finally {
 			cts.dispose();
-			await config.update("oaicopilot.models", previousModels, vscode.ConfigurationTarget.Global);
+			await config.update("newapicopilot.models", previousModels, vscode.ConfigurationTarget.Global);
 		}
 	});
 
 	test("does not register reasoning effort metadata when the default is empty", async () => {
 		const config = vscode.workspace.getConfiguration();
-		const previousModels = config.get<unknown>("oaicopilot.models", []);
+		const previousModels = config.get<unknown>("newapicopilot.models", []);
 		const cts = new vscode.CancellationTokenSource();
 		const model: HFModelItem = {
 			...deepSeekModel,
@@ -91,7 +91,7 @@ suite("modelConfiguration", () => {
 		};
 
 		try {
-			await config.update("oaicopilot.models", [model], vscode.ConfigurationTarget.Global);
+			await config.update("newapicopilot.models", [model], vscode.ConfigurationTarget.Global);
 
 			const infos = await prepareLanguageModelChatInformation({ silent: true }, cts.token, {} as vscode.SecretStorage);
 			const info = infos.find((item) => item.id === "deepseek-v4-flash") as ModelPickerChatInformation | undefined;
@@ -100,7 +100,7 @@ suite("modelConfiguration", () => {
 			assert.strictEqual(info.configurationSchema, undefined);
 		} finally {
 			cts.dispose();
-			await config.update("oaicopilot.models", previousModels, vscode.ConfigurationTarget.Global);
+			await config.update("newapicopilot.models", previousModels, vscode.ConfigurationTarget.Global);
 		}
 	});
 
